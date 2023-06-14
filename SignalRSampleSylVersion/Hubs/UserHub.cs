@@ -12,21 +12,21 @@ namespace SignalRSampleSylVersion.Hubs
         public override Task OnConnectedAsync()
         {
             TotalUsers++;
-             Clients.All.SendAsync("updateTotalUsers", TotalViews).GetAwaiter().GetResult();
+             Clients.All.SendAsync("updateTotalUsers", TotalUsers ).GetAwaiter().GetResult();
             return base.OnConnectedAsync();
         }
 
-        public override async Task OnDisconnectedAsync(Exception? exception)
+        public override Task OnDisconnectedAsync(Exception? exception)
         {
             TotalUsers--;
-            Clients.All.SendAsync("updateTotalUsers", TotalViews).GetAwaiter().GetResult();
+            Clients.All.SendAsync("updateTotalUsers", TotalUsers).GetAwaiter().GetResult();
             return base.OnDisconnectedAsync(exception);
         }
 
         public async Task NewWindowLoaded()
         {
             TotalViews++;
-            await Clients.All.SendAsync("updateTotalUsers", TotalViews);
+            await Clients.All.SendAsync("updateTotalViews", TotalViews);
 
 
 
