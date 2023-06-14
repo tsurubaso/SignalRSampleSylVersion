@@ -1,4 +1,5 @@
-var connectionUserCount = new signalR.HubConnectionBuilder().withUrl("/hubs/userCount").build();
+var connectionUserCount = new signalR.HubConnectionBuilder()
+    .withUrl("/hubs/userCount").build();
 
 connectionUserCount.on("updateTotalViews", (value) => {
 
@@ -14,7 +15,7 @@ connectionUserCount.on("updateTotalUsers", (value) => {
 
 
 function newWindowLoadedOnClient() {
-    connectionUserCount.send("NewWindowLoaded");
+    connectionUserCount.invoke("NewWindowLoaded", "Zaratoustra").then((value) => console.log(value));
 }
 
 function fulfilled() {
